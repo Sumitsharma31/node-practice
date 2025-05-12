@@ -1,7 +1,7 @@
 // The path module helps work with file and directory paths in a way that’s cross-platform.
 
 const path = require('path');
-const filePath = "/node-practice/phase2/pathModule";
+const filePath = "/node-practice/phase2/pathModule/app.js";
 
 console.log('Base name:', path.basename(filePath));  // app.js
 console.log('Directory:', path.dirname(filePath));   // /users/sumit/desktop
