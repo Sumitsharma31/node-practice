@@ -17,3 +17,12 @@ fs.writeFile('output.txt', 'This was written by Node.js!', (err) => {
   }
   console.log('File written successfully!');
 });
+
+
+fs.appendFile('output.txt', '\nAppended text.', (err) => {
+  if (err) {
+    console.error('Error appending to file:', err);
+    return;
+  }
+  console.log('Text appended successfully!');
+});
