@@ -1,7 +1,8 @@
 const http=require('http');
 
 const server=http.createServer((req,res)=>{
-    console.log(req);
+    console.log(req.url,req.method,req.headers);
+
     
     res.writeHead(200,{'Content-Type': 'text/plain'})
     res.end('Hello, this is your first Node.js server!');
