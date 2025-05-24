@@ -19,7 +19,7 @@ fs.writeFile('output.txt', 'This was written by Node.js!', (err) => {
 });
 
 
-fs.appendFile('output.txt', '\nAppended text.', (err) => {
+fs.appendFile('output.txt', '\n2nd Appended text.', (err) => {
   if (err) {
     console.error('Error appending to file:', err);
     return;
