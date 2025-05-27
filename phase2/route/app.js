@@ -5,8 +5,9 @@ const server = http.createServer((req, res) => {
     if (req.url == '/home') {
         res.setHeader('content-type', 'text/html');
         res.write('<h1>this is home page</h1>');
-        return res.end();
-
+        
+       
+res.status(201).send('home page displayed');
     } else if (req.url == '/men') {
         res.setHeader('content-type', 'text/html');
         res.write('<h1>this is men page</h1>');
