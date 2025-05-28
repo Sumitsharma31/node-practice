@@ -1,7 +1,8 @@
 const http = require('http');
 const fs = require('fs');
 const url = require('url');
-const querystring = require('querystring');
+const { buffer, json } = require('stream/consumers');
+
 
 const port = 3000;
 
@@ -28,14 +29,27 @@ const server = http.createServer((req, res) => {
         `);
     } else if (req.method === 'POST' && parsedUrl.pathname === '/submit') {
         // Handle form submission
-        let body = '';
+        let body = [];
         req.on('data', chunk => {
-            body += chunk.toString();
+            console.log(chunk.toString());
+           body.push(chunk)
+            
         });
         req.on('end', () => {
-            const postData = querystring.parse(body);
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end(`Received: Name - ${postData.name}, Gender - ${postData.gender}`);
+           const fullBody=Buffer.concat(body).toString()
+            const params=new URLSearchParams(fullBody)
+            
+            // const bodyObj={};
+            // for( const [key,value] of params.entries()){
+            //     bodyObj[key]=value;
+            // }
+          const  bodyObj=Object.fromEntries(params)
+            console.log(bodyObj);
+            
+           fs.writeFileSync('user.txt', JSON.stringify(bodyObj))
+            
+           res.writeHead(302, { Location: '/' });
+res.end();
         });
     } else {
         // Handle 404
