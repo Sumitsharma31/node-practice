@@ -16,7 +16,11 @@ app.get('/', (req, res) => {
 
 })
 app.get('/read', (req, res) => {
-  console.log(req.cookies.token);
+  // console.log(req.cookies.token);
+
+  let realData=jwt.verify(req.cookies.token, '48frg84')
+  console.log(realData);
+  
   res.send('check console')
 
 })
