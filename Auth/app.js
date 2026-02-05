@@ -1,6 +1,7 @@
 const cookieParser = require('cookie-parser');
 const express = require('express');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+let myPlaintextPassword = 'password'
 
 const app = express();
 app.use(cookieParser())
@@ -23,15 +24,25 @@ app.get('/', (req, res) => {
 
   // Technique 1 (generate a salt and hash on separate function calls):
   bcrypt.genSalt(10, function (err, salt) {
-    bcrypt.hash('password', salt, function (err, hash) {
+    bcrypt.hash(myPlaintextPassword, salt, function (err, hash) {
+      res.cookie('hashpass', hash)
       console.log("method 1", hash);
       res.send('done')
     });
   });
 
   // Technique 2 (auto-gen a salt and hash):
-  bcrypt.hash('secret', 10, function (err, hash) {
-    console.log("method 2", hash);
+
+  // bcrypt.hash('secret', 10, function (err, hash) {
+  //   console.log("method 2", hash);
+
+  // });
+})
+
+app.get('/check', (req, res) => {
+  bcrypt.compare(myPlaintextPassword, req.cookies.hashpass, function (err, result) {
+    console.log(result);
+    res.send("user verify")
 
   });
 })
